@@ -5,12 +5,45 @@ public class Main {
 	
 	public static void main(String args[])
 	{	
-	Scanner scan = new Scanner(System.in);
-	RubiksCube newCube = new RubiksCube();
+		Scanner scan = new Scanner(System.in);
+		RubiksCube newCube = new RubiksCube();
 
-	newCube.startingMove();
-	System.out.println("Done");
-
+		System.out.println("Enter Bottom Color Of The Corner In The Lower Left Front Of The Cube");
+		System.out.println("Enter Front Color Of The Corner In The Lower Left Front Of The Cube");
+		System.out.println("Enter Left Color Of The Corner In The Lower Left Front Of The Cube");
+		System.out.println();
+		System.out.println("Enter Bottom Color Of The Corner In The Lower Right Front Of The Cube");
+		System.out.println("Enter Front Color Of The Corner In The Lower Right Front Of The Cube");
+		System.out.println("Enter Right Color Of The Corner In The Lower Right Front Of The Cube");
+		System.out.println();
+		System.out.println("Enter Bottom Color Of The Corner In The Lower Left Back Of The Cube");
+		System.out.println("Enter Back Color Of The Corner In The Lower Left Back Of The Cube");
+		System.out.println("Enter Left Color Of The Corner In The Lower Left Back Of The Cube");
+		System.out.println();
+		System.out.println("Enter Bottom Color Of The Corner In The Lower Right Back Of The Cube");
+		System.out.println("Enter Back Color Of The Corner In The Lower Right Back Of The Cube");
+		System.out.println("Enter Right Color Of The Corner In The Lower Right Back Of The Cube");
+		System.out.println();
+		System.out.println("Enter Top Color Of The Corner In The Upper Left Front Of The Cube");
+		System.out.println("Enter Front Color Of The Corner In The Upper Left Front Of The Cube");
+		System.out.println("Enter Left Color Of The Corner In The Upper Left Front Of The Cube");
+		System.out.println();
+		System.out.println("Enter Top Color Of The Corner In The Upper Right Front Of The Cube");
+		System.out.println("Enter Front Color Of The Corner In The Upper Right Front Of The Cube");
+		System.out.println("Enter Right Color Of The Corner In The Upper Right Front Of The Cube");
+		System.out.println();
+		System.out.println("Enter Top Color Of The Corner In The Upper Left Back Of The Cube");
+		System.out.println("Enter Back Color Of The Corner In The Upper Left Back Of The Cube");
+		System.out.println("Enter Left Color Of The Corner In The Upper Left Back Of The Cube");
+		System.out.println();
+		System.out.println("Enter Top Color Of The Corner In The Upper Right Back Of The Cube");
+		System.out.println("Enter Back Color Of The Corner In The Upper Right Back Of The Cube");
+		System.out.println("Enter Right Color Of The Corner In The Upper Right Back Of The Cube");
+		
+		System.out.println("Currently Brute Forcing The Cube... Don't Rage Quit...");
+		newCube.solve();
+		System.out.println("Magika. Now Follow These Steps To Solve Your Cube");
+	
 	
 	
 
@@ -175,6 +208,82 @@ public class Main {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+/*
+ * newCube.move(0);//
+	newCube.move(1);
+	newCube.move(0);
+	newCube.move(2);//
+	newCube.move(1);
+	newCube.move(1);
+	newCube.move(0);//
+ // 1,1,2,1,0,2,0
+		 if (refNum == ref1Num)
+			{
+				// [0], [1], [4] should be the only values filled
+				this._allColours[bottom] = "O"; // bottom
+				this._allColours[front] = "Y"; // front
+				this._allColours[left] = "G"; // left
+			}
+			else if (refNum == ref2Num)
+			{
+				// [0], [1], [2] should be the only values filled
+				this._allColours[bottom] = "G"; // bottom
+				this._allColours[front] = "R"; // front
+				this._allColours[right] = "Y"; // right
+			}
+			else if (refNum == ref3Num)
+			{
+				// [0], [3], [2] should be the only values filled
+				this._allColours[bottom] = "B"; // bottom
+				this._allColours[back] = "R"; // back
+				this._allColours[right] = "Y"; // right
+			}
+			else if (refNum == ref4Num)
+			{
+				// [0], [3], [4] should be the only values filled
+				this._allColours[bottom] = "R"; // bottom
+				this._allColours[back] = "G"; // back
+				this._allColours[left] = "W"; // left
+			}
+		   if (refNum == ref5Num)
+			{
+				// [5], [1], [4] should be the only values filled
+				this._allColours[top] = "O"; // top
+				this._allColours[front] = "B"; // front
+				this._allColours[left] = "W"; // left
+			}
+			else if (refNum == ref6Num)
+			{
+				// [5], [1], [2] should be the only values filled
+				this._allColours[top] = "G"; // top
+				this._allColours[front] = "W"; // front
+				this._allColours[right] = "O"; // right
+			}
+			else if (refNum == ref7Num)
+			{
+				// [5], [3], [2] should be the only values filled
+				this._allColours[top] = "R"; // top
+				this._allColours[back] = "W"; // back
+				this._allColours[right] = "B"; // right
+			}
+			else if (refNum == ref8Num)
+			{
+				// [5], [3], [4] should be the only values filled
+				this._allColours[top] = "Y"; // top
+				this._allColours[back] = "O"; // back
+				this._allColours[left] = "B"; // left
+			} 
+ */
+	
+	
+	
+	
 
 	/*
 	 * 
@@ -298,36 +407,6 @@ public class Main {
 	}
 	}
 
-	System.out.println("Enter In The Colours For The Piece In Bottom Of The Cube");
-	System.out.println("Enter In The Colours For The Top Of The Cube");
-	System.out.println("Enter In The Colours For The Front Of The Cube");
-	System.out.println("Enter In The Colours For The Back Of The Cube");
-	System.out.println("Enter In The Colours For The Left Of The Cube");
-	System.out.println("Enter In The Colours For The Right Of The Cube");
-	
-	String [][][] rubiksCube = 
-	{ 
-                { 
-                	// ref5, ref6, ref7, ref8
-                   {"YellowBlueRedCube", "YellowRedGreenCube"}, {"YellowGreenOrangeCube", "YellowOrangeBlueCube"}
-                },
-                
-                {  
-                	// ref1, ref2, ref3, ref4
-                   {"WhiteBlueRedCube", "WhiteRedGreenCube"}, {"WhiteGreenOrangeCube", "WhiteOrangeBlueCube"}
-                } 
-             };
-	
-	for (int i = 0; i < 2; i ++)
-	{
-	for (int i2 = 0; i2 < 2; i2 ++)
-	{
-	for (int i3 = 0; i3 < 2; i3 ++)
-	{
-	//	System.out.println((i + 1) + " " + (i2 + 1) + " " + (i3 + 1) + "=====" + rubiksCube[i][i2][i3]);
-	}
-	}
-	}
 	*/	
 	}
 }

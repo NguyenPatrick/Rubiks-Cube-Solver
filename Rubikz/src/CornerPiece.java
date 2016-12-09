@@ -49,65 +49,62 @@ public class CornerPiece {
 	
 	public void addColour(int refNum) //String[] threeColors, 
 	{	
-		 
-		// right spin up x2
-		 if (refNum == ref1Num)
-			{
-				// [0], [1], [4] should be the only values filled
-				this._allColours[bottom] = "W"; // bottom
-				this._allColours[front] = "R"; // front
-				this._allColours[left] = "B"; // left
-			}
-			else if (refNum == ref2Num)
-			{
-				// [0], [1], [2] should be the only values filled
-				this._allColours[bottom] = "Y"; // bottom
-				this._allColours[front] = "O"; // front
-				this._allColours[right] = "G"; // right
-			}
-			else if (refNum == ref3Num)
-			{
-				// [0], [3], [2] should be the only values filled
-				this._allColours[bottom] = "Y"; // bottom
-				this._allColours[back] = "R"; // back
-				this._allColours[right] = "G"; // right
-			}
-			else if (refNum == ref4Num)
-			{
-				// [0], [3], [4] should be the only values filled
-				this._allColours[bottom] = "W"; // bottom
-				this._allColours[back] = "O"; // back
-				this._allColours[left] = "B"; // left
-			}
-		   if (refNum == ref5Num)
-			{
-				// [5], [1], [4] should be the only values filled
-				this._allColours[top] = "Y"; // top
-				this._allColours[front] = "R"; // front
-				this._allColours[left] = "B"; // left
-			}
-			else if (refNum == ref6Num)
-			{
-				// [5], [1], [2] should be the only values filled
-				this._allColours[top] = "W"; // top
-				this._allColours[front] = "O"; // front
-				this._allColours[right] = "G"; // right
-			}
-			else if (refNum == ref7Num)
-			{
-				// [5], [3], [2] should be the only values filled
-				this._allColours[top] = "W"; // top
-				this._allColours[back] = "R"; // back
-				this._allColours[right] = "G"; // right
-			}
-			else if (refNum == ref8Num)
-			{
-				// [5], [3], [4] should be the only values filled
-				this._allColours[top] = "Y"; // top
-				this._allColours[back] = "O"; // back
-				this._allColours[left] = "B"; // left
-			} 
-
+		if (refNum == ref1Num)
+		{
+			// [0], [1], [4] should be the only values filled
+			this._allColours[bottom] = "R"; // bottom
+			this._allColours[front] = "W"; // front
+			this._allColours[left] = "G"; // left
+		}
+		else if (refNum == ref2Num)
+		{
+			// [0], [1], [2] should be the only values filled
+			this._allColours[bottom] = "Y"; // bottom
+			this._allColours[front] = "O"; // front
+			this._allColours[right] = "G"; // right
+		}
+		else if (refNum == ref3Num)
+		{
+			// [0], [3], [2] should be the only values filled
+			this._allColours[bottom] = "B"; // bottom
+			this._allColours[back] = "O"; // back
+			this._allColours[right] = "W"; // right
+		}
+		else if (refNum == ref4Num)
+		{
+			// [0], [3], [4] should be the only values filled
+			this._allColours[bottom] = "W"; // bottom
+			this._allColours[back] = "B"; // back
+			this._allColours[left] = "R"; // left
+		} 
+		else if (refNum == ref5Num)
+		{
+			// [5], [1], [4] should be the only values filled
+			this._allColours[top] = "O"; // top
+			this._allColours[front] = "W"; // front
+			this._allColours[left] = "G"; // left
+		}
+		else if (refNum == ref6Num)
+		{
+			// [5], [1], [2] should be the only values filled
+			this._allColours[top] = "B"; // top
+			this._allColours[front] = "R"; // front
+			this._allColours[right] = "Y"; // right
+		}
+		else if (refNum == ref7Num)
+		{
+			// [5], [3], [2] should be the only values filled
+			this._allColours[top] = "O"; // top
+			this._allColours[back] = "Y"; // back
+			this._allColours[right] = "B"; // right
+		}
+		else if (refNum == ref8Num)
+		{
+			// [5], [3], [4] should be the only values filled
+			this._allColours[top] = "Y"; // top
+			this._allColours[back] = "R"; // back
+			this._allColours[left] = "G"; // left
+		}
 	}
 	
 	// cube constructor --> constructs original cube pieces

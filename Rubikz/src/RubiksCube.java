@@ -3,15 +3,20 @@ import java.util.Arrays;
 
 public class RubiksCube {
 
-	private CornerPiece[] _allCornerPieces =  new CornerPiece[8];
-	private Boolean[] _allFacesSolveState =  new Boolean[6];
-	private String[][] _originalColors = new String[8][6];
-	ArrayList<Integer> _allMoves =  new ArrayList<Integer>();
+	// stores all the corner pieces which in turn makes a cube
+	private CornerPiece[] _allCornerPieces =  new CornerPiece[8]; 
+	private Boolean[] _allFacesSolveState =  new Boolean[6]; // solve state of faces
+	private String[][] _originalColors = new String[8][6]; // initial colors of the cube
+	ArrayList<Integer> _allMoves =  new ArrayList<Integer>(); // stores all moves to solve
 	
+	// logical constants for more organized code
 	public static final int TOTAL_CORNERS = 8;
 	public static final int NUMBER_OF_FACES = 6;
 	public static final int NUMBER_OF_MOVES = 3;
+	// absolute worse case scenario = 11 moves, which is 11 x 3 for this class
+	public static final int WORSE_CASE_SCENARIO = 33; 
 
+	// constants for reference corners to make coding easier
 	private static final int ref1Num = 0;
 	private static final int ref2Num = 1;
 	private static final int ref3Num = 2;
@@ -21,33 +26,33 @@ public class RubiksCube {
 	private static final int ref7Num = 6;
 	private static final int ref8Num = 7;
 	
+	// constants to make it easier to declare sides
 	private static final int bottom = 0;
 	private static final int front = 1;
 	private static final int right = 2;
 	private static final int back = 3;
 	private static final int left = 4;
 	private static final int top = 5;
-		
-	
+			
 	// constructor for the cube
 	public RubiksCube()
 	{
-		// create new corner pieces
+		// creates new corner pieces & stores their information for future use
 		for (int pieces = 0; pieces < TOTAL_CORNERS; pieces++)
-		{
-			
+		{		
 			this._allCornerPieces[pieces] = new CornerPiece(pieces); // creates all corner pieces
 			this._allCornerPieces[pieces].addColour(pieces); // gives corner pieces their color
-			this._originalColors[pieces] = _allCornerPieces[pieces].getAllColors(); // ref array
+			this._originalColors[pieces] = _allCornerPieces[pieces].getAllColors(); // stores colors
 		}
 		
-		for (int pieces = 0; pieces < 6; pieces++)
+		for (int faces = 0; faces < NUMBER_OF_FACES; faces++)
 		{
-			this._allFacesSolveState[pieces] = false; // nothing is solved yet
+			// nothing is solved yet, has to run through the check function
+			this._allFacesSolveState[faces] = false; 
 		}	
 	}
 		
-	// checks to see if cube is valid
+	// checks to see if cube is valid using the faces of the cube
 	public Boolean checkForSolution()
 	{
 		// bottom face (1)
@@ -128,27 +133,23 @@ public class RubiksCube {
 			this._allFacesSolveState[ref6Num] = false;
 		}
 		
+		// checks to see if all faces are solved
 		for (int pieces = 0; pieces < this._allFacesSolveState.length; pieces++)
 		{
 			if (this._allFacesSolveState[pieces] == false)
 			{
-				return false; // pieces are not solved
+				return false; // not all faces are not solved
 			}
 		}
 		
-	System.out.println("Works");
-	return true;	
-
+	// System.out.println("Works");
+	return true; // all faces are solved
 	}
 	
 	public void move(int turnNum)
 	{
-		int refTemp;	
-		String[][] colorTemp = new String[8][6]; 
-		
-		// bottom move right (0) --> tested 
-		// right move up (1) --> tested
-		// front spin right (2) --> tested
+		int refTemp; // temp for reference number of the cube
+		String[][] colorTemp = new String[8][6]; // temp for new colors of the cube after each move
 		
 		// bottom move right (0) --> tested 
 		// ref1 --> ref2 = bottom[0] --> bottom[0], front[1] --> right[2], left[4] --> front[1]
@@ -289,67 +290,98 @@ public class RubiksCube {
 			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref1Num])); */ 			
 		}
 		
+		// makes the real colors of the cube the temp colors
 		for (int pieces = 0; pieces < TOTAL_CORNERS; pieces ++)
 		{
 			this._originalColors[pieces] = _allCornerPieces[pieces].getAllColors();
 		}
 
-		// recursion after move
-		checkForSolution();
+		// checkForSolution();
 	}
 	
 	
-	
-	public void startingMove()
+	public void printMoves()
 	{
-		ArrayList<Integer> bestMoveCombo = this.solve();	
-	//	System.out.println("qwerqwer" + Arrays.toString(bestMoveCombo.toArray()));
+		for (int i = 0; i < this._allMoves.size(); i ++)
+		{
+		     if (this._allMoves.get(i) == 0)
+		     {
+		    	 System.out.println("Move The Bottom Row Right");
+		     }
+		     else if(this._allMoves.get(i) == 1)
+		     {
+		    	 System.out.println("Move The Right Column Up");
+		     }
+		     else if(this._allMoves.get(i) == 2)
+		     {
+		    	 System.out.println("Move The Front Face Clockwise");
+		     }
+		}
+	}
+	
+	// method to initiate the solving of the cube
+	public void solve()
+	{
+		// stores the moves
+		ArrayList<Integer> optimaSolution = new ArrayList<Integer>();
+		
+		// uses loop to calculate the optimal solution
+		for (int recursionLevel = 0; recursionLevel < WORSE_CASE_SCENARIO; recursionLevel ++)
+		{
+			// checks to see if the cube is solved
+			if (this.checkForSolution() == false)
+			{
+				// if not then move up a level of recursion (number of moves)
+				optimaSolution = this.calculateMoves(0, recursionLevel);	
+			}
+			else
+			{
+				break;
+			}
+		}
 
-
+		this.printMoves(); // prints all the moves
+		//System.out.println(Arrays.toString(optimaSolution.toArray()));
 	}
 
-	private ArrayList<Integer> solve(){
-
-		// I need to limit the range of moves so that it doesn't recurse forever
-		if(this._allMoves.size() < 4)
+	// recursion to case through every scenario and choose the optimal one
+	public ArrayList<Integer> calculateMoves(int count, int moveLimit)
+	{
+		// limit checking to induce next recursion level if cube isnt solved
+		if(count < moveLimit)
 		{
+			// if cube is already solved
 			if(this.checkForSolution() == true)
 			{				
-				System.out.println(Arrays.toString(this._allMoves.toArray()));
 				return this._allMoves;
 			}
 			else
 			{			
-				for(int numberOfMoves = 0; numberOfMoves < 3; numberOfMoves++)
+				// case through every scenario using 3 moves
+				for(int numberOfMoves = 0; numberOfMoves < NUMBER_OF_MOVES; numberOfMoves++)
 				{
-					this._allMoves.add(numberOfMoves);
+					this._allMoves.add(numberOfMoves); // adds move to array list
+					this.move(numberOfMoves); // moves the cube
 					//System.out.println(Arrays.toString(this._allMoves.toArray()));
-					this._allMoves = new ArrayList<Integer>(solve());
+					this._allMoves = new ArrayList<Integer>(calculateMoves(count + 1, moveLimit)); // recursion
 					
-					RubiksCube kageBushin = this;
-					
-					for (int i = 0; i < this._allMoves.size(); i ++)
+					// returns solution if cube is solved
+					if(this.checkForSolution() == true)
 					{
-						System.out.println(this._allMoves.get(i));
-						kageBushin.move(this._allMoves.get(i));
+					    //System.out.println(Arrays.toString(this._allMoves.toArray()));
+						return this._allMoves;			
 					}
-					
-					if (kageBushin.checkForSolution() == true)
+
+					// undos move for next recursive instance
+					for (int moveUndo = 0; moveUndo < NUMBER_OF_MOVES; moveUndo ++)
 					{
-						System.out.println("wqerqwerqwer");
-						break;
+						this.move(numberOfMoves);				
 					}
-					this._allMoves.remove(this._allMoves.size() - 1);
-				}		
+
+					this._allMoves.remove(count); // removes last value in list for next recursion
+				}			
 			}
-		}
-		
+		}		
 		return this._allMoves;
 	}
 }
-
-
-
-
-
-
