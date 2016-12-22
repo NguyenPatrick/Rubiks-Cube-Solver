@@ -69,7 +69,6 @@ public class RubiksCube {
 		for (int pieces = 0; pieces < TOTAL_CORNERS; pieces++)
 		{		
 			this._allCornerPieces[pieces] = new CornerPiece(pieces); // creates all corner pieces
-			// 6 FOR LOOP HERE
 			this._allCornerPieces[pieces].addColour(pieces, cubeColors); // gives corner pieces their color
 			this._originalColors[pieces] = this._allCornerPieces[pieces].getAllColors(); // stores colors
 		}
