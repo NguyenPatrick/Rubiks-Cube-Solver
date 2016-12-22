@@ -13,36 +13,59 @@ public class RubiksCube {
 	public static final int TOTAL_CORNERS = 8;
 	public static final int NUMBER_OF_FACES = 6;
 	public static final int NUMBER_OF_MOVES = 3;
-	// absolute worse case scenario = 11 moves, which is 11 x 3 for this class
+	// absolute worse case scenario = 11 moves, which is 11 x 3 since there are 3 moves
 	public static final int WORSE_CASE_SCENARIO = 33; 
 
 	// constants for reference corners to make coding easier
-	private static final int ref1Num = 0;
-	private static final int ref2Num = 1;
-	private static final int ref3Num = 2;
-	private static final int ref4Num = 3;
-	private static final int ref5Num = 4;
-	private static final int ref6Num = 5;
-	private static final int ref7Num = 6;
-	private static final int ref8Num = 7;
+	private static final int REFNUM_1 = 0;
+	private static final int REFNUM_2 = 1;
+	private static final int REFNUM_3 = 2;
+	private static final int REFNUM_4 = 3;
+	private static final int REFNUM_5 = 4;
+	private static final int REFNUM_6 = 5;
+	private static final int REFNUM_7 = 6;
+	private static final int REFNUM_8 = 7;
 	
 	// constants to make it easier to declare sides
-	private static final int bottom = 0;
-	private static final int front = 1;
-	private static final int right = 2;
-	private static final int back = 3;
-	private static final int left = 4;
-	private static final int top = 5;
-			
+	private static final int BOTTOM = 0;
+	private static final int FRONT = 1;
+	private static final int RIGHT = 2;
+	private static final int BACK = 3;
+	private static final int LEFT = 4;
+	private static final int TOP = 5;
+		
+	// enum for the colors of the cube
+	public enum Color {
+		
+		RED("R"),
+		BLUE("B"),
+		WHITE("W"),
+		ORANGE("O"),
+		YELLOW("Y"),
+		GREEN("G");
+		
+		private final String color;
+		
+		Color(String color) {
+	        this.color = color;
+	    }
+	    
+	    public String getColor() {
+	        return this.color;
+	    }
+
+	}
+
 	// constructor for the cube
-	public RubiksCube()
+	public RubiksCube(String[] cubeColors)
 	{
 		// creates new corner pieces & stores their information for future use
 		for (int pieces = 0; pieces < TOTAL_CORNERS; pieces++)
 		{		
 			this._allCornerPieces[pieces] = new CornerPiece(pieces); // creates all corner pieces
-			this._allCornerPieces[pieces].addColour(pieces); // gives corner pieces their color
-			this._originalColors[pieces] = _allCornerPieces[pieces].getAllColors(); // stores colors
+			// 6 FOR LOOP HERE
+			this._allCornerPieces[pieces].addColour(pieces, cubeColors); // gives corner pieces their color
+			this._originalColors[pieces] = this._allCornerPieces[pieces].getAllColors(); // stores colors
 		}
 		
 		for (int faces = 0; faces < NUMBER_OF_FACES; faces++)
@@ -55,82 +78,82 @@ public class RubiksCube {
 	// checks to see if cube is valid using the faces of the cube
 	public Boolean checkForSolution()
 	{
-		// bottom face (1)
-		if ((this._originalColors[ref1Num][bottom].equals(this._originalColors[ref2Num][bottom]) && 
-				this._originalColors[ref2Num][bottom].equals(this._originalColors[ref3Num][bottom]) &&
-				this._originalColors[ref3Num][bottom].equals(this._originalColors[ref4Num][bottom]) &&
-				this._originalColors[ref4Num][bottom].equals(this._originalColors[ref1Num][bottom])))
+		// BOTTOM face (1)
+		if ((this._originalColors[REFNUM_1][BOTTOM].equals(this._originalColors[REFNUM_2][BOTTOM]) && 
+				this._originalColors[REFNUM_2][BOTTOM].equals(this._originalColors[REFNUM_3][BOTTOM]) &&
+				this._originalColors[REFNUM_3][BOTTOM].equals(this._originalColors[REFNUM_4][BOTTOM]) &&
+				this._originalColors[REFNUM_4][BOTTOM].equals(this._originalColors[REFNUM_1][BOTTOM])))
 		{
-			this._allFacesSolveState[ref1Num] = true;
+			this._allFacesSolveState[REFNUM_1] = true;
 		}	
 		else
 		{
-			this._allFacesSolveState[ref1Num] = false;
+			this._allFacesSolveState[REFNUM_1] = false;
 		}
 		
-		// top face (2)
-		if ((this._originalColors[ref5Num][top].equals(this._originalColors[ref6Num][top]) && 
-				this._originalColors[ref6Num][top].equals(this._originalColors[ref7Num][top]) &&
-				this._originalColors[ref7Num][top].equals(this._originalColors[ref8Num][top]) &&
-				this._originalColors[ref8Num][top].equals(this._originalColors[ref5Num][top])))
+		// TOP face (2)
+		if ((this._originalColors[REFNUM_5][TOP].equals(this._originalColors[REFNUM_6][TOP]) && 
+				this._originalColors[REFNUM_6][TOP].equals(this._originalColors[REFNUM_7][TOP]) &&
+				this._originalColors[REFNUM_7][TOP].equals(this._originalColors[REFNUM_8][TOP]) &&
+				this._originalColors[REFNUM_8][TOP].equals(this._originalColors[REFNUM_5][TOP])))
 		{
-			this._allFacesSolveState[ref2Num] = true;
+			this._allFacesSolveState[REFNUM_2] = true;
 		}	
 		else
 		{
-			this._allFacesSolveState[ref2Num] = false;
+			this._allFacesSolveState[REFNUM_2] = false;
 		}
 		
-		// front face (3)
-		if ((this._originalColors[ref1Num][front].equals(this._originalColors[ref2Num][front]) && 
-				this._originalColors[ref2Num][front].equals(this._originalColors[ref5Num][front]) &&
-				this._originalColors[ref5Num][front].equals(this._originalColors[ref6Num][front]) &&
-				this._originalColors[ref6Num][front].equals(this._originalColors[ref1Num][front])))
+		// FRONT face (3)
+		if ((this._originalColors[REFNUM_1][FRONT].equals(this._originalColors[REFNUM_2][FRONT]) && 
+				this._originalColors[REFNUM_2][FRONT].equals(this._originalColors[REFNUM_5][FRONT]) &&
+				this._originalColors[REFNUM_5][FRONT].equals(this._originalColors[REFNUM_6][FRONT]) &&
+				this._originalColors[REFNUM_6][FRONT].equals(this._originalColors[REFNUM_1][FRONT])))
 		{
-			this._allFacesSolveState[ref3Num] = true;
+			this._allFacesSolveState[REFNUM_3] = true;
 		}	
 		else
 		{
-			this._allFacesSolveState[ref3Num] = false;
+			this._allFacesSolveState[REFNUM_3] = false;
 		}
 		
-		// back face (4)
-		if ((this._originalColors[ref3Num][back].equals(this._originalColors[ref4Num][back]) && 
-				this._originalColors[ref4Num][back].equals(this._originalColors[ref7Num][back]) &&
-				this._originalColors[ref7Num][back].equals(this._originalColors[ref8Num][back]) &&
-				this._originalColors[ref8Num][back].equals(this._originalColors[ref3Num][back])))
+		// BACK face (4)
+		if ((this._originalColors[REFNUM_3][BACK].equals(this._originalColors[REFNUM_4][BACK]) && 
+				this._originalColors[REFNUM_4][BACK].equals(this._originalColors[REFNUM_7][BACK]) &&
+				this._originalColors[REFNUM_7][BACK].equals(this._originalColors[REFNUM_8][BACK]) &&
+				this._originalColors[REFNUM_8][BACK].equals(this._originalColors[REFNUM_3][BACK])))
 		{
-			this._allFacesSolveState[ref4Num] = true;
+			this._allFacesSolveState[REFNUM_4] = true;
 		}
 		else
 		{
-			this._allFacesSolveState[ref4Num] = false;
+			this._allFacesSolveState[REFNUM_4] = false;
 		}
 		
-		// right face (5)
-		if ((this._originalColors[ref2Num][right].equals(this._originalColors[ref3Num][right]) && 
-				this._originalColors[ref3Num][right].equals(this._originalColors[ref6Num][right]) &&
-				this._originalColors[ref6Num][right].equals(this._originalColors[ref7Num][right]) &&
-				this._originalColors[ref7Num][right].equals(this._originalColors[ref2Num][right])))
+		// RIGHT face (5)
+		if ((this._originalColors[REFNUM_2][RIGHT].equals(this._originalColors[REFNUM_3][RIGHT]) && 
+				this._originalColors[REFNUM_3][RIGHT].equals(this._originalColors[REFNUM_6][RIGHT]) &&
+				this._originalColors[REFNUM_6][RIGHT].equals(this._originalColors[REFNUM_7][RIGHT]) &&
+				this._originalColors[REFNUM_7][RIGHT].equals(this._originalColors[REFNUM_2][RIGHT])))
 		{
-			this._allFacesSolveState[ref5Num] = true;
+			this._allFacesSolveState[REFNUM_5] = true;
 		}	
 		else
 		{
-			this._allFacesSolveState[ref5Num] = false;
+			this._allFacesSolveState[REFNUM_5] = false;
 		}
 		
-		// left face (6)
-		if ((this._originalColors[ref1Num][left].equals(this._originalColors[ref4Num][left]) && 
-				this._originalColors[ref4Num][left].equals(this._originalColors[ref5Num][left]) &&
-				this._originalColors[ref5Num][left].equals(this._originalColors[ref8Num][left]) &&
-				this._originalColors[ref8Num][left].equals(this._originalColors[ref1Num][left])))
+		// LEFT face (6)
+		if ((this._originalColors[REFNUM_1][LEFT].equals(this._originalColors[REFNUM_4][LEFT]) && 
+				this._originalColors[REFNUM_4][LEFT].equals(this._originalColors[REFNUM_5][LEFT]) &&
+				this._originalColors[REFNUM_5][LEFT].equals(this._originalColors[REFNUM_8][LEFT]) &&
+				this._originalColors[REFNUM_8][LEFT].equals(this._originalColors[REFNUM_1][LEFT])))
 		{
-			this._allFacesSolveState[ref6Num] = true;
+			this._allFacesSolveState[REFNUM_6] = true;
 		}		
 		else
 		{
-			this._allFacesSolveState[ref6Num] = false;
+			this._allFacesSolveState[REFNUM_6] = false;
 		}
 		
 		// checks to see if all faces are solved
@@ -151,143 +174,143 @@ public class RubiksCube {
 		int refTemp; // temp for reference number of the cube
 		String[][] colorTemp = new String[8][6]; // temp for new colors of the cube after each move
 		
-		// bottom move right (0) --> tested 
-		// ref1 --> ref2 = bottom[0] --> bottom[0], front[1] --> right[2], left[4] --> front[1]
-		// ref2 --> ref3 = bottom[0] --> bottom[0], front[1] --> right[2], right[2] --> back[3]
-		// ref3 --> ref4 = bottom[0] --> bottom[0], back[3] --> left[4], right[2] --> back[3]
-		// ref4 --> ref1 = bottom[0] --> bottom[0], back[3] --> left[4], left[4] --> front[1]
+		// BOTTOM move RIGHT (0) --> tested 
+		// ref1 --> ref2 = BOTTOM[0] --> BOTTOM[0], FRONT[1] --> RIGHT[2], LEFT[4] --> FRONT[1]
+		// ref2 --> ref3 = BOTTOM[0] --> BOTTOM[0], FRONT[1] --> RIGHT[2], RIGHT[2] --> BACK[3]
+		// ref3 --> ref4 = BOTTOM[0] --> BOTTOM[0], BACK[3] --> LEFT[4], RIGHT[2] --> BACK[3]
+		// ref4 --> ref1 = BOTTOM[0] --> BOTTOM[0], BACK[3] --> LEFT[4], LEFT[4] --> FRONT[1]
 		if(turnNum == 0)
 		{
-			refTemp = this._allCornerPieces[ref1Num].getRefNumber();
-			this._allCornerPieces[ref1Num].changeRefNumber(this._allCornerPieces[ref2Num].getRefNumber());
-			this._allCornerPieces[ref2Num].changeRefNumber(this._allCornerPieces[ref3Num].getRefNumber());
-			this._allCornerPieces[ref3Num].changeRefNumber(this._allCornerPieces[ref4Num].getRefNumber());
-			this._allCornerPieces[ref4Num].changeRefNumber(refTemp);				
+			refTemp = this._allCornerPieces[REFNUM_1].getRefNumber();
+			this._allCornerPieces[REFNUM_1].changeRefNumber(this._allCornerPieces[REFNUM_2].getRefNumber());
+			this._allCornerPieces[REFNUM_2].changeRefNumber(this._allCornerPieces[REFNUM_3].getRefNumber());
+			this._allCornerPieces[REFNUM_3].changeRefNumber(this._allCornerPieces[REFNUM_4].getRefNumber());
+			this._allCornerPieces[REFNUM_4].changeRefNumber(refTemp);				
 			
 			// ref1 --> ref2
-			colorTemp[ref1Num][bottom] = _originalColors[ref1Num][bottom];
-			colorTemp[ref1Num][right] = _originalColors[ref1Num][front];
-			colorTemp[ref1Num][front] = _originalColors[ref1Num][left];
+			colorTemp[REFNUM_1][BOTTOM] = _originalColors[REFNUM_1][BOTTOM];
+			colorTemp[REFNUM_1][RIGHT] = _originalColors[REFNUM_1][FRONT];
+			colorTemp[REFNUM_1][FRONT] = _originalColors[REFNUM_1][LEFT];
 			// ref2 --> ref3
-			colorTemp[ref2Num][bottom] = _originalColors[ref2Num][bottom];
-			colorTemp[ref2Num][right] = _originalColors[ref2Num][front];
-			colorTemp[ref2Num][back] = _originalColors[ref2Num][right];
+			colorTemp[REFNUM_2][BOTTOM] = _originalColors[REFNUM_2][BOTTOM];
+			colorTemp[REFNUM_2][RIGHT] = _originalColors[REFNUM_2][FRONT];
+			colorTemp[REFNUM_2][BACK] = _originalColors[REFNUM_2][RIGHT];
 			// ref2 --> ref3
-			colorTemp[ref3Num][bottom] = _originalColors[ref3Num][bottom];
-			colorTemp[ref3Num][left] = _originalColors[ref3Num][back];
-			colorTemp[ref3Num][back] = _originalColors[ref3Num][right];
+			colorTemp[REFNUM_3][BOTTOM] = _originalColors[REFNUM_3][BOTTOM];
+			colorTemp[REFNUM_3][LEFT] = _originalColors[REFNUM_3][BACK];
+			colorTemp[REFNUM_3][BACK] = _originalColors[REFNUM_3][RIGHT];
 			// ref4 --> ref1
-			colorTemp[ref4Num][bottom] = _originalColors[ref4Num][bottom];
-			colorTemp[ref4Num][left] = _originalColors[ref4Num][back];
-			colorTemp[ref4Num][front] = _originalColors[ref4Num][left];	
+			colorTemp[REFNUM_4][BOTTOM] = _originalColors[REFNUM_4][BOTTOM];
+			colorTemp[REFNUM_4][LEFT] = _originalColors[REFNUM_4][BACK];
+			colorTemp[REFNUM_4][FRONT] = _originalColors[REFNUM_4][LEFT];	
 					
-			this._allCornerPieces[ref2Num].changeAllColors(colorTemp[ref1Num]);
-			this._allCornerPieces[ref3Num].changeAllColors(colorTemp[ref2Num]);
-			this._allCornerPieces[ref4Num].changeAllColors(colorTemp[ref3Num]);
-			this._allCornerPieces[ref1Num].changeAllColors(colorTemp[ref4Num]);
+			this._allCornerPieces[REFNUM_2].changeAllColors(colorTemp[REFNUM_1]);
+			this._allCornerPieces[REFNUM_3].changeAllColors(colorTemp[REFNUM_2]);
+			this._allCornerPieces[REFNUM_4].changeAllColors(colorTemp[REFNUM_3]);
+			this._allCornerPieces[REFNUM_1].changeAllColors(colorTemp[REFNUM_4]);
 		
-			// System.out.println("Bottom Move Right");
-		    /* System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref1Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref2Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref3Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref4Num])); 
+			// System.out.println("BOTTOM Move RIGHT");
+		    /* System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_1])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_2])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_3])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_4])); 
 			System.out.println(); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref1Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref2Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref3Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref4Num])); */
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_1])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_2])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_3])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_4])); */
 		}	
-		// right move up (1) --> tested
-		// ref6 --> ref7 = top[5] --> back[3], front[1] --> top[5], right[2] --> right[2]
-		// ref7 --> ref3 = top[5] --> back[3] , back[3] --> bottom[0], right[2] --> right[2]
-		// ref3 --> ref2 = bottom[0] --> front[1], back[3] --> bottom[0], right[2] --> right[2]
-		// ref2 --> ref6 = bottom[0] --> front[1], front[1] --> top[5], right[2] --> right[2]
+		// RIGHT move up (1) --> tested
+		// ref6 --> ref7 = TOP[5] --> BACK[3], FRONT[1] --> TOP[5], RIGHT[2] --> RIGHT[2]
+		// ref7 --> ref3 = TOP[5] --> BACK[3] , BACK[3] --> BOTTOM[0], RIGHT[2] --> RIGHT[2]
+		// ref3 --> ref2 = BOTTOM[0] --> FRONT[1], BACK[3] --> BOTTOM[0], RIGHT[2] --> RIGHT[2]
+		// ref2 --> ref6 = BOTTOM[0] --> FRONT[1], FRONT[1] --> TOP[5], RIGHT[2] --> RIGHT[2]
 		else if(turnNum == 1)
 		{
-			refTemp = this._allCornerPieces[ref6Num].getRefNumber();
-			this._allCornerPieces[ref6Num].changeRefNumber(this._allCornerPieces[ref7Num].getRefNumber());
-			this._allCornerPieces[ref7Num].changeRefNumber(this._allCornerPieces[ref3Num].getRefNumber());
-			this._allCornerPieces[ref3Num].changeRefNumber(this._allCornerPieces[ref2Num].getRefNumber());
-			this._allCornerPieces[ref2Num].changeRefNumber(refTemp);	
+			refTemp = this._allCornerPieces[REFNUM_6].getRefNumber();
+			this._allCornerPieces[REFNUM_6].changeRefNumber(this._allCornerPieces[REFNUM_7].getRefNumber());
+			this._allCornerPieces[REFNUM_7].changeRefNumber(this._allCornerPieces[REFNUM_3].getRefNumber());
+			this._allCornerPieces[REFNUM_3].changeRefNumber(this._allCornerPieces[REFNUM_2].getRefNumber());
+			this._allCornerPieces[REFNUM_2].changeRefNumber(refTemp);	
 					
 			// ref6 --> ref7
-			colorTemp[ref6Num][back] = _originalColors[ref6Num][top];
-			colorTemp[ref6Num][top] = _originalColors[ref6Num][front];
-			colorTemp[ref6Num][right] = _originalColors[ref6Num][right];
+			colorTemp[REFNUM_6][BACK] = _originalColors[REFNUM_6][TOP];
+			colorTemp[REFNUM_6][TOP] = _originalColors[REFNUM_6][FRONT];
+			colorTemp[REFNUM_6][RIGHT] = _originalColors[REFNUM_6][RIGHT];
 			// ref7 --> ref3
-			colorTemp[ref7Num][back] = _originalColors[ref7Num][top];
-			colorTemp[ref7Num][bottom] = _originalColors[ref7Num][back];
-			colorTemp[ref7Num][right] = _originalColors[ref7Num][right];
+			colorTemp[REFNUM_7][BACK] = _originalColors[REFNUM_7][TOP];
+			colorTemp[REFNUM_7][BOTTOM] = _originalColors[REFNUM_7][BACK];
+			colorTemp[REFNUM_7][RIGHT] = _originalColors[REFNUM_7][RIGHT];
 			// ref3 --> ref2
-			colorTemp[ref3Num][front] = _originalColors[ref3Num][bottom];
-			colorTemp[ref3Num][bottom] = _originalColors[ref3Num][back];
-			colorTemp[ref3Num][right] = _originalColors[ref3Num][right];
+			colorTemp[REFNUM_3][FRONT] = _originalColors[REFNUM_3][BOTTOM];
+			colorTemp[REFNUM_3][BOTTOM] = _originalColors[REFNUM_3][BACK];
+			colorTemp[REFNUM_3][RIGHT] = _originalColors[REFNUM_3][RIGHT];
 			// ref2 --> ref6 
-			colorTemp[ref2Num][front] = _originalColors[ref2Num][bottom];
-			colorTemp[ref2Num][top] = _originalColors[ref2Num][front];
-			colorTemp[ref2Num][right] = _originalColors[ref2Num][right];	
+			colorTemp[REFNUM_2][FRONT] = _originalColors[REFNUM_2][BOTTOM];
+			colorTemp[REFNUM_2][TOP] = _originalColors[REFNUM_2][FRONT];
+			colorTemp[REFNUM_2][RIGHT] = _originalColors[REFNUM_2][RIGHT];	
 			
-			this._allCornerPieces[ref7Num].changeAllColors(colorTemp[ref6Num]);
-			this._allCornerPieces[ref3Num].changeAllColors(colorTemp[ref7Num]);
-			this._allCornerPieces[ref2Num].changeAllColors(colorTemp[ref3Num]);
-			this._allCornerPieces[ref6Num].changeAllColors(colorTemp[ref2Num]);
+			this._allCornerPieces[REFNUM_7].changeAllColors(colorTemp[REFNUM_6]);
+			this._allCornerPieces[REFNUM_3].changeAllColors(colorTemp[REFNUM_7]);
+			this._allCornerPieces[REFNUM_2].changeAllColors(colorTemp[REFNUM_3]);
+			this._allCornerPieces[REFNUM_6].changeAllColors(colorTemp[REFNUM_2]);
 			
-			// System.out.println("Right Move Up");
-			/* System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref6Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref7Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref3Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref2Num])); 
+			// System.out.println("RIGHT Move Up");
+			/* System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_6])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_7])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_3])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_2])); 
 			System.out.println(); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref6Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref7Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref3Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref2Num])); */
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_6])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_7])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_3])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_2])); */
 		}
-		// front spin right (2) --> tested
-		// ref5 --> ref6 = top[5] --> right[2], front[1] --> front[1],  left[4] --> top[5]
-		// ref6 --> ref2 = top[5] --> right[2], front[1] --> front[1], right[2] --> bottom[0]
-		// ref2 --> ref1 = bottom[0] --> left[4], front[1] --> front[1], right[2] --> bottom[0]
-		// ref1 --> ref5 = bottom[0] --> left[4], front[1] --> front[1], left[4] --> top[5]
+		// FRONT spin RIGHT (2) --> tested
+		// ref5 --> ref6 = TOP[5] --> RIGHT[2], FRONT[1] --> FRONT[1],  LEFT[4] --> TOP[5]
+		// ref6 --> ref2 = TOP[5] --> RIGHT[2], FRONT[1] --> FRONT[1], RIGHT[2] --> BOTTOM[0]
+		// ref2 --> ref1 = BOTTOM[0] --> LEFT[4], FRONT[1] --> FRONT[1], RIGHT[2] --> BOTTOM[0]
+		// ref1 --> ref5 = BOTTOM[0] --> LEFT[4], FRONT[1] --> FRONT[1], LEFT[4] --> TOP[5]
 		else if(turnNum == 2)
 		{
-			refTemp = this._allCornerPieces[ref5Num].getRefNumber();
-			this._allCornerPieces[ref5Num].changeRefNumber(this._allCornerPieces[ref6Num].getRefNumber());
-			this._allCornerPieces[ref6Num].changeRefNumber(this._allCornerPieces[ref2Num].getRefNumber());
-			this._allCornerPieces[ref2Num].changeRefNumber(this._allCornerPieces[ref1Num].getRefNumber());
-			this._allCornerPieces[ref1Num].changeRefNumber(refTemp);	
+			refTemp = this._allCornerPieces[REFNUM_5].getRefNumber();
+			this._allCornerPieces[REFNUM_5].changeRefNumber(this._allCornerPieces[REFNUM_6].getRefNumber());
+			this._allCornerPieces[REFNUM_6].changeRefNumber(this._allCornerPieces[REFNUM_2].getRefNumber());
+			this._allCornerPieces[REFNUM_2].changeRefNumber(this._allCornerPieces[REFNUM_1].getRefNumber());
+			this._allCornerPieces[REFNUM_1].changeRefNumber(refTemp);	
 			
 			// ref5 --> ref6
-			colorTemp[ref5Num][right] = _originalColors[ref5Num][top];
-			colorTemp[ref5Num][front] = _originalColors[ref5Num][front];
-			colorTemp[ref5Num][top] = _originalColors[ref5Num][left];
+			colorTemp[REFNUM_5][RIGHT] = _originalColors[REFNUM_5][TOP];
+			colorTemp[REFNUM_5][FRONT] = _originalColors[REFNUM_5][FRONT];
+			colorTemp[REFNUM_5][TOP] = _originalColors[REFNUM_5][LEFT];
 			// ref6 --> ref2
-			colorTemp[ref6Num][right] = _originalColors[ref6Num][top];
-			colorTemp[ref6Num][front] = _originalColors[ref6Num][front];
-			colorTemp[ref6Num][bottom] = _originalColors[ref6Num][right];
+			colorTemp[REFNUM_6][RIGHT] = _originalColors[REFNUM_6][TOP];
+			colorTemp[REFNUM_6][FRONT] = _originalColors[REFNUM_6][FRONT];
+			colorTemp[REFNUM_6][BOTTOM] = _originalColors[REFNUM_6][RIGHT];
 			// ref2 --> ref1
-			colorTemp[ref2Num][left] = _originalColors[ref2Num][bottom];
-			colorTemp[ref2Num][front] = _originalColors[ref2Num][front];
-			colorTemp[ref2Num][bottom] = _originalColors[ref2Num][right];
+			colorTemp[REFNUM_2][LEFT] = _originalColors[REFNUM_2][BOTTOM];
+			colorTemp[REFNUM_2][FRONT] = _originalColors[REFNUM_2][FRONT];
+			colorTemp[REFNUM_2][BOTTOM] = _originalColors[REFNUM_2][RIGHT];
 			// ref1 --> ref5
-			colorTemp[ref1Num][left] = _originalColors[ref1Num][bottom];
-			colorTemp[ref1Num][front] = _originalColors[ref1Num][front];
-			colorTemp[ref1Num][top] = _originalColors[ref1Num][left];
+			colorTemp[REFNUM_1][LEFT] = _originalColors[REFNUM_1][BOTTOM];
+			colorTemp[REFNUM_1][FRONT] = _originalColors[REFNUM_1][FRONT];
+			colorTemp[REFNUM_1][TOP] = _originalColors[REFNUM_1][LEFT];
 			
-			this._allCornerPieces[ref6Num].changeAllColors(colorTemp[ref5Num]);
-			this._allCornerPieces[ref2Num].changeAllColors(colorTemp[ref6Num]);
-			this._allCornerPieces[ref1Num].changeAllColors(colorTemp[ref2Num]);
-			this._allCornerPieces[ref5Num].changeAllColors(colorTemp[ref1Num]);
+			this._allCornerPieces[REFNUM_6].changeAllColors(colorTemp[REFNUM_5]);
+			this._allCornerPieces[REFNUM_2].changeAllColors(colorTemp[REFNUM_6]);
+			this._allCornerPieces[REFNUM_1].changeAllColors(colorTemp[REFNUM_2]);
+			this._allCornerPieces[REFNUM_5].changeAllColors(colorTemp[REFNUM_1]);
 			
-			// System.out.println("Front Spin Right");
-			/* System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref5Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref6Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref2Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[ref1Num])); 
+			// System.out.println("FRONT Spin RIGHT");
+			/* System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_5])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_6])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_2])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(_originalColors[REFNUM_1])); 
 			System.out.println(); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref5Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref6Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref2Num])); 
-			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[ref1Num])); */ 			
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_5])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_6])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_2])); 
+			System.out.println("Sorted List of Numbers: " + Arrays.toString(colorTemp[REFNUM_1])); */ 			
 		}
 		
 		// makes the real colors of the cube the temp colors
@@ -295,26 +318,25 @@ public class RubiksCube {
 		{
 			this._originalColors[pieces] = _allCornerPieces[pieces].getAllColors();
 		}
-
 		// checkForSolution();
 	}
-	
-	
+		
+	// prints out all of the moves of the cube to solve it
 	public void printMoves()
 	{
-		for (int i = 0; i < this._allMoves.size(); i ++)
+		for (int moves = 0; moves < this._allMoves.size(); moves ++)
 		{
-		     if (this._allMoves.get(i) == 0)
+		     if (this._allMoves.get(moves) == 0)
 		     {
-		    	 System.out.println("Move The Bottom Row Right");
+		    	 System.out.println("Move The BOTTOM Row RIGHT");
 		     }
-		     else if(this._allMoves.get(i) == 1)
+		     else if(this._allMoves.get(moves) == 1)
 		     {
-		    	 System.out.println("Move The Right Column Up");
+		    	 System.out.println("Move The RIGHT Column UP");
 		     }
-		     else if(this._allMoves.get(i) == 2)
+		     else if(this._allMoves.get(moves) == 2)
 		     {
-		    	 System.out.println("Move The Front Face Clockwise");
+		    	 System.out.println("Move The FRONT Face Clockwise");
 		     }
 		}
 	}

@@ -1,115 +1,119 @@
 public class CornerPiece {
 	
 	// values for  all sides of a corner piece
-	private static final int bottom = 0;
-	private static final int front = 1;
-	private static final int right = 2;
-	private static final int back = 3;
-	private static final int left = 4;
-	private static final int top = 5;
+	private static final int BOTTOM = 0;
+	private static final int FRONT = 1;
+	private static final int RIGHT = 2;
+	private static final int BACK = 3;
+	private static final int LEFT = 4;
+	private static final int TOP = 5;
 	
-	private static final int ref1Num = 0;
-	private static final int ref2Num = 1;
-	private static final int ref3Num = 2;
-	private static final int ref4Num = 3;
-	private static final int ref5Num = 4;
-	private static final int ref6Num = 5;
-	private static final int ref7Num = 6;
-	private static final int ref8Num = 7;
+	private static final int REFNUM_1 = 0;
+	private static final int REFNUM_2 = 1;
+	private static final int REFNUM_3 = 2;
+	private static final int REFNUM_4 = 3;
+	private static final int REFNUM_5 = 4;
+	private static final int REFNUM_6 = 5;
+	private static final int REFNUM_7 = 6;
+	private static final int REFNUM_8 = 7;
 	
 	// reference number for making moves
 	private int _refNumber;	
-	// six sides for each cube (even though some colors are empty) at least
-	// 3 colors are displayed each time & the color positioning changes
+	
+	// six sides for each corner piece (even though some colors are empty) 
+	// 3 colors are displayed each time & the sides of the colors will vary based on the move
 	private String[] _allColours = new String[6];
-	
-	
-	// http://stackoverflow.com/questions/7772068/method-to-limit-potential-values-of-an-enum
-	
 
+	// gets all the colors of the corner piece
 	protected String[] getAllColors()
 	{
 	    return this._allColours;
 	}
 	
+	// changes color when a move is made
 	protected void changeAllColors(String[] newColors)
 	{
 	    this._allColours = newColors;
 	}
 	
-	// changes refNum
+	// changes refNum when move is made
 	protected void changeRefNumber(int newRefNum)
 	{
 		this._refNumber = newRefNum;
 	}
+	
+	// gets refNum for usage
 	public int getRefNumber()
 	{
 		return this._refNumber;
 	}
 	
-	public void addColour(int refNum) //String[] threeColors, 
+	// initial colors of the corner pieces
+	public void addColour(int refNum, String[] cubeColors) //String[] threeColors, 
 	{	
-		if (refNum == ref1Num)
+		if (refNum == REFNUM_1)
 		{
 			// [0], [1], [4] should be the only values filled
-			this._allColours[bottom] = "R"; // bottom
-			this._allColours[front] = "W"; // front
-			this._allColours[left] = "G"; // left
+			this._allColours[BOTTOM] = cubeColors[0]; // BOTTOM
+			this._allColours[FRONT] = cubeColors[1]; // FRONT
+			this._allColours[LEFT] = cubeColors[2]; // LEFT
 		}
-		else if (refNum == ref2Num)
+		else if (refNum == REFNUM_2)
 		{
 			// [0], [1], [2] should be the only values filled
-			this._allColours[bottom] = "Y"; // bottom
-			this._allColours[front] = "O"; // front
-			this._allColours[right] = "G"; // right
+			this._allColours[BOTTOM] = cubeColors[3]; // BOTTOM
+			this._allColours[FRONT] = cubeColors[4]; // FRONT
+			this._allColours[RIGHT] = cubeColors[5]; // RIGHT
 		}
-		else if (refNum == ref3Num)
+		else if (refNum == REFNUM_3)
 		{
 			// [0], [3], [2] should be the only values filled
-			this._allColours[bottom] = "B"; // bottom
-			this._allColours[back] = "O"; // back
-			this._allColours[right] = "W"; // right
+			this._allColours[BOTTOM] = cubeColors[6]; // BOTTOM
+			this._allColours[BACK] = cubeColors[7]; // BACK
+			this._allColours[RIGHT] = cubeColors[8]; // RIGHT
 		}
-		else if (refNum == ref4Num)
+		else if (refNum == REFNUM_4)
 		{
 			// [0], [3], [4] should be the only values filled
-			this._allColours[bottom] = "W"; // bottom
-			this._allColours[back] = "B"; // back
-			this._allColours[left] = "R"; // left
+			this._allColours[BOTTOM] = cubeColors[9]; // BOTTOM
+			this._allColours[BACK] = cubeColors[10]; // BACK
+			this._allColours[LEFT] = cubeColors[11]; // LEFT
 		} 
-		else if (refNum == ref5Num)
+		
+
+		if (refNum == REFNUM_5)
 		{
 			// [5], [1], [4] should be the only values filled
-			this._allColours[top] = "O"; // top
-			this._allColours[front] = "W"; // front
-			this._allColours[left] = "G"; // left
+			this._allColours[TOP] = cubeColors[12]; // TOP
+			this._allColours[FRONT] = cubeColors[13]; // FRONT
+			this._allColours[LEFT] = cubeColors[14]; // LEFT
 		}
-		else if (refNum == ref6Num)
+		else if (refNum == REFNUM_6)
 		{
 			// [5], [1], [2] should be the only values filled
-			this._allColours[top] = "B"; // top
-			this._allColours[front] = "R"; // front
-			this._allColours[right] = "Y"; // right
+			this._allColours[TOP] = cubeColors[15]; // TOP
+			this._allColours[FRONT] = cubeColors[16]; // FRONT
+			this._allColours[RIGHT] = cubeColors[17]; // RIGHT
 		}
-		else if (refNum == ref7Num)
+		else if (refNum == REFNUM_7)
 		{
 			// [5], [3], [2] should be the only values filled
-			this._allColours[top] = "O"; // top
-			this._allColours[back] = "Y"; // back
-			this._allColours[right] = "B"; // right
+			this._allColours[TOP] = cubeColors[18]; // TOP
+			this._allColours[BACK] = cubeColors[19]; // BACK
+			this._allColours[RIGHT] = cubeColors[20]; // RIGHT
 		}
-		else if (refNum == ref8Num)
+		else if (refNum == REFNUM_8)
 		{
 			// [5], [3], [4] should be the only values filled
-			this._allColours[top] = "Y"; // top
-			this._allColours[back] = "R"; // back
-			this._allColours[left] = "G"; // left
+			this._allColours[TOP] = cubeColors[21]; // TOP
+			this._allColours[BACK] = cubeColors[22]; // BACK
+			this._allColours[LEFT] = cubeColors[23]; // LEFT
 		}
 	}
 	
 	// cube constructor --> constructs original cube pieces
-	// everything is with reference to the cube having the top color as "yellow", the bottom color
-	// as "white" and the front color as "red"
+	// everything is with reference to the cube having the TOP color as "yellow", the BOTTOM color
+	// as "white" and the FRONT color as "red"
 	public CornerPiece(int refNum)
 	// public CornerPiece(int refNum, String firstColour, String secondColour, String thirdColour)
 	{

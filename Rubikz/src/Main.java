@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Main {
@@ -6,43 +6,110 @@ public class Main {
 	public static void main(String args[])
 	{	
 		Scanner scan = new Scanner(System.in);
-		RubiksCube newCube = new RubiksCube();
-
-		System.out.println("Enter Bottom Color Of The Corner In The Lower Left Front Of The Cube");
-		System.out.println("Enter Front Color Of The Corner In The Lower Left Front Of The Cube");
-		System.out.println("Enter Left Color Of The Corner In The Lower Left Front Of The Cube");
+		String [] cubeColors = new String[24];
+			
+		System.out.println("Welcome to Cub Solver! Follow These Following Steps To Set Up Your Cube!");
+		System.out.println("| W = White | Y = Yellow | R = Red | O = Orange | G = Green | B = Blue |");
+		System.out.println("First Hold One Face Towards You, Remember This! This Face is ALWAYS Your Front Face!");
 		System.out.println();
-		System.out.println("Enter Bottom Color Of The Corner In The Lower Right Front Of The Cube");
-		System.out.println("Enter Front Color Of The Corner In The Lower Right Front Of The Cube");
-		System.out.println("Enter Right Color Of The Corner In The Lower Right Front Of The Cube");
-		System.out.println();
-		System.out.println("Enter Bottom Color Of The Corner In The Lower Left Back Of The Cube");
-		System.out.println("Enter Back Color Of The Corner In The Lower Left Back Of The Cube");
-		System.out.println("Enter Left Color Of The Corner In The Lower Left Back Of The Cube");
-		System.out.println();
-		System.out.println("Enter Bottom Color Of The Corner In The Lower Right Back Of The Cube");
-		System.out.println("Enter Back Color Of The Corner In The Lower Right Back Of The Cube");
-		System.out.println("Enter Right Color Of The Corner In The Lower Right Back Of The Cube");
-		System.out.println();
-		System.out.println("Enter Top Color Of The Corner In The Upper Left Front Of The Cube");
-		System.out.println("Enter Front Color Of The Corner In The Upper Left Front Of The Cube");
-		System.out.println("Enter Left Color Of The Corner In The Upper Left Front Of The Cube");
-		System.out.println();
-		System.out.println("Enter Top Color Of The Corner In The Upper Right Front Of The Cube");
-		System.out.println("Enter Front Color Of The Corner In The Upper Right Front Of The Cube");
-		System.out.println("Enter Right Color Of The Corner In The Upper Right Front Of The Cube");
-		System.out.println();
-		System.out.println("Enter Top Color Of The Corner In The Upper Left Back Of The Cube");
-		System.out.println("Enter Back Color Of The Corner In The Upper Left Back Of The Cube");
-		System.out.println("Enter Left Color Of The Corner In The Upper Left Back Of The Cube");
-		System.out.println();
-		System.out.println("Enter Top Color Of The Corner In The Upper Right Back Of The Cube");
-		System.out.println("Enter Back Color Of The Corner In The Upper Right Back Of The Cube");
-		System.out.println("Enter Right Color Of The Corner In The Upper Right Back Of The Cube");
 		
+		// gets the user input
+		for (int allColors = 0; allColors < 24; allColors ++)
+		{
+			Boolean isValid = false;
+			String direction;
+			String topOrBottom;
+			String frontOrBack;
+			String leftOrRight;
+						
+			// direction of the face
+			if (allColors == 0 || allColors == 3 || allColors == 6 || allColors == 9)
+			{
+				direction = "Bottom";
+			}			
+			else if (allColors == 12 || allColors == 15 || allColors == 18 || allColors == 21)
+			{
+				direction = "Top";
+			}
+			else if (allColors == 1 || allColors == 4 || allColors == 13 || allColors == 16)
+			{
+				direction = "Front";
+			}
+			else if (allColors == 7 || allColors == 10 || allColors == 19 || allColors == 22)
+			{
+				direction = "Back";
+			}
+			else if (allColors == 5 || allColors == 8 || allColors == 17 || allColors == 20)
+			{
+				direction = "Right";
+			}
+			else 
+			{
+				direction = "Left";
+			}
+			
+			// top and bottom 
+			if (allColors < 12)
+			{
+				topOrBottom = "Lower";
+			}
+			else
+			{
+				topOrBottom = "Upper";
+			}
+			
+			// left and right 
+			if (allColors > 2 && allColors < 9 || allColors > 14 && allColors < 21)
+			{
+				leftOrRight = "Right";
+			}
+			else
+			{
+				leftOrRight = "Left";
+			}
+			
+			// front and back 
+			if (allColors < 6 || allColors > 11 && allColors < 18)
+			{
+				frontOrBack = "Front";
+			}
+			else
+			{
+				frontOrBack = "Back";
+			}
+			
+			System.out.println("Enter The " + direction + " Color Of The Corner In The " + 
+			topOrBottom + " " + leftOrRight + " " + frontOrBack + " Of The Cube");	
+
+
+			while (!isValid) 
+			{
+				String input = scan.nextLine();
+							
+				for(int possibleColors = 0; possibleColors < 6; possibleColors ++)
+				{
+					if (input.equals(RubiksCube.Color.values()[possibleColors].getColor()))
+					{
+						cubeColors[allColors] = input;	
+						isValid = true;
+					}
+				}
+				
+				if (isValid == false)
+				{
+					System.err.println("Invalid Input! Please Enter A Valid Color!");	
+				}
+			}
+		}
+		
+		RubiksCube newCube = new RubiksCube(cubeColors);
+		System.out.println();
 		System.out.println("Currently Brute Forcing The Cube... Don't Rage Quit...");
+		System.out.println("REMINDER: When Following The Steps, Be Sure To Keep The FRONT Face ALWAYS Facing Towards You");
+		System.out.println();
 		newCube.solve();
-		System.out.println("Magika. Now Follow These Steps To Solve Your Cube");
+		System.out.println();
+		System.out.println("Done. Follow These Steps To Solve Your Cube");
 	
 	
 	
@@ -215,7 +282,8 @@ public class Main {
 	
 	
 /*
- * newCube.move(0);//
+ *
+ *newCube.move(0);//
 	newCube.move(1);
 	newCube.move(0);
 	newCube.move(2);//
