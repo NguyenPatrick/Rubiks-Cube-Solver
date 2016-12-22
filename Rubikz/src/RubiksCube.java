@@ -1,5 +1,12 @@
+/****************************************************************************
+*
+* Created by: Patrick Nguyen
+* Created on: December 2016
+* Rubiks Cube Object Class
+*
+****************************************************************************/
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RubiksCube {
 
@@ -53,7 +60,6 @@ public class RubiksCube {
 	    public String getColor() {
 	        return this.color;
 	    }
-
 	}
 
 	// constructor for the cube

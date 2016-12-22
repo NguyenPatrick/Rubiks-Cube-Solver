@@ -1,3 +1,11 @@
+/****************************************************************************
+*
+* Created by: Patrick Nguyen
+* Created on: December 2016
+* Corner Piece Class For The Rubiks Cube
+*
+****************************************************************************/
+
 public class CornerPiece {
 	
 	// values for  all sides of a corner piece
@@ -48,7 +56,7 @@ public class CornerPiece {
 		return this._refNumber;
 	}
 	
-	// initial colors of the corner pieces
+	// initial colors of the corner pieces (input by user)
 	public void addColour(int refNum, String[] cubeColors) //String[] threeColors, 
 	{	
 		if (refNum == REFNUM_1)
@@ -79,9 +87,7 @@ public class CornerPiece {
 			this._allColours[BACK] = cubeColors[10]; // BACK
 			this._allColours[LEFT] = cubeColors[11]; // LEFT
 		} 
-		
-
-		if (refNum == REFNUM_5)
+		else if (refNum == REFNUM_5)
 		{
 			// [5], [1], [4] should be the only values filled
 			this._allColours[TOP] = cubeColors[12]; // TOP
@@ -115,7 +121,6 @@ public class CornerPiece {
 	// everything is with reference to the cube having the TOP color as "yellow", the BOTTOM color
 	// as "white" and the FRONT color as "red"
 	public CornerPiece(int refNum)
-	// public CornerPiece(int refNum, String firstColour, String secondColour, String thirdColour)
 	{
 		this._refNumber = refNum; // declares reference number of the cube	
 	}
